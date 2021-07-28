@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/utils/routes.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  String name = "";
+  bool changeButton = false;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -17,7 +24,7 @@ class Login extends StatelessWidget {
               height: 20,
             ),
             Text(
-              "Welcome",
+              "Welcome $name",
               style: TextStyle(
                 fontSize: 34,
                 color: Colors.indigo,
@@ -36,6 +43,10 @@ class Login extends StatelessWidget {
                       hintText: " Enter Username",
                       labelText: "Username",
                     ),
+                    onChanged: (value) {
+                      name = value;
+                      setState(() {});
+                    },
                   ),
                   TextFormField(
                     obscureText: true,
@@ -47,7 +58,40 @@ class Login extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
+                  InkWell(
+                    onTap: () async {
+                      setState(() {
+                        changeButton = true;
+                      });
+                      await Future.delayed(Duration(seconds: 1));
+                      Navigator.pushNamed(context, MyRoute.homeroute);
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(seconds: 1),
+                      height: 50,
+                      width: changeButton ? 50 : 150,
+                      alignment: Alignment.center,
+                      child: changeButton
+                          ? Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Login",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(changeButton ? 50 : 8),
+                        color: Colors.indigo,
+                      ),
+                    ),
+                  )
+                  /* ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, MyRoute.homeroute);
                     },
@@ -56,7 +100,7 @@ class Login extends StatelessWidget {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.indigo),
                         minimumSize: MaterialStateProperty.all(Size(200, 50))),
-                  )
+                  )*/
                 ],
               ),
             )
