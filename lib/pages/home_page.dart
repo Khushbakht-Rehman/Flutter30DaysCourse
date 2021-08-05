@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/widgets/drawer.dart';
 
@@ -8,10 +10,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Catalog App"),
       ),
-      body: Center(
-        child: Container(
-          child: Text("Hello world"),
-        ),
+      body: Container(
+        child: Text("Hello world"),
       ),
       drawer: MyDrawer(),
     );
